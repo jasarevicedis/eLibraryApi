@@ -12,6 +12,10 @@ namespace eLibraryApi.Repository
         public BookRepository(DataContext context) {
             _context = context;
         }
+        public async Task<bool> BookExists(int id)
+        {
+            return await _context.books.AnyAsync(a => a.Id == id);
+        }
         public async Task<List<Book>> GetBooks()
         {
             return await _context.books
