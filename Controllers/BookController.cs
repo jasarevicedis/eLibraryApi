@@ -21,10 +21,10 @@ namespace eLibraryApi.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(List<BookDto>))]
-        public async Task<ActionResult<List<BookDto>>> GetBooks()
+        [ProducesResponseType(200, Type = typeof(List<BookDtoRequest>))]
+        public async Task<ActionResult<List<BookDtoRequest>>> GetBooks()
         {
-            var bookDtos = _mapper.Map<List<BookDto>>(await _bookRepository.GetBooks());
+            var bookDtos = _mapper.Map<List<BookDtoRequest>>(await _bookRepository.GetBooks());
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -32,13 +32,13 @@ namespace eLibraryApi.Controllers
             return Ok(bookDtos);
         }
         [HttpGet("{id:int}")]
-        [ProducesResponseType(200, Type = typeof(BookDto))]
+        [ProducesResponseType(200, Type = typeof(BookDtoRequest))]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<BookDto>> GetBook(int id)
+        public async Task<ActionResult<BookDtoRequest>> GetBook(int id)
         {
             if (!await _bookRepository.BookExists(id))
                 return NotFound(ModelState);
-            var accommodationDto = _mapper.Map<BookDto>(await _bookRepository.GetBookById(id));
+            var accommodationDto = _mapper.Map<BookDtoRequest>(await _bookRepository.GetBookById(id));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -47,10 +47,10 @@ namespace eLibraryApi.Controllers
         }
 
         [HttpGet("{name}")]
-        [ProducesResponseType(200, Type = typeof(List<BookDto>))]
-        public async Task<ActionResult<List<BookDto>>> GetBooks(string name)
+        [ProducesResponseType(200, Type = typeof(List<BookDtoRequest>))]
+        public async Task<ActionResult<List<BookDtoRequest>>> GetBooks(string name)
         {
-            var bookDtos = _mapper.Map<List<BookDto>>(await _bookRepository.GetBooksByName(name));
+            var bookDtos = _mapper.Map<List<BookDtoRequest>>(await _bookRepository.GetBooksByName(name));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -61,7 +61,7 @@ namespace eLibraryApi.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> AddBook([FromBody] BookDto bookDto)
+        public async Task<ActionResult> AddBook([FromBody] BookDtoRequest bookDto)
         {
             if (bookDto == null)
                 return BadRequest(ModelState);

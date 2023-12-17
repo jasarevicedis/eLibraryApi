@@ -4,6 +4,7 @@ using eLibraryApi.Helper;
 using eLibraryApi.Interfaces;
 using eLibraryApi.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Configuration.AddUserSecrets<Program>();
 
 
- 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Connection String: {connectionString}");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

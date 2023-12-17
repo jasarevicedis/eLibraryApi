@@ -8,8 +8,17 @@ namespace eLibraryApi.Helper
     {
         public MappingProfiles()
         {
-            CreateMap<Book, BookDto>();
-            CreateMap<BookDto, Book>();
+            CreateMap<Book, BookDtoRequest>();
+            CreateMap<BookDtoRequest, Book>();
+
+            CreateMap<Category, CategoryDtoRequest>();
+            CreateMap<CategoryDtoRequest, Category>();
+
+            CreateMap<Author, AuthorDtoRequest>();
+            CreateMap<AuthorDtoRequest, Author>();
+
+
+
         }
     }
 }
