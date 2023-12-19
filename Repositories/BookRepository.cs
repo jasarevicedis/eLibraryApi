@@ -43,7 +43,7 @@ namespace eLibraryApi.Repository
 
         public async Task<bool> BookExists(int id)
         {
-            return await _dataContext.bookinstances.AnyAsync(a => a.Id == id);
+            return await _dataContext.books.AnyAsync(a => a.Id == id);
         }
 
         public async Task<List<Book>> FilterAndOrderBooks(Category category, string SortOption)
