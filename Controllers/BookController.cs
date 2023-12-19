@@ -21,7 +21,7 @@ namespace eLibraryApi.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(List<BookDtoRequest>))]
+        [ProducesResponseType(200, Type = typeof(List<BookDtoResponse>))]
         public async Task<ActionResult<List<BookDtoRequest>>> GetBooks()
         {
             var bookDtos = _mapper.Map<List<BookDtoRequest>>(await _bookRepository.GetBooks());
@@ -32,7 +32,7 @@ namespace eLibraryApi.Controllers
             return Ok(bookDtos);
         }
         [HttpGet("{id:int}")]
-        [ProducesResponseType(200, Type = typeof(BookDtoRequest))]
+        [ProducesResponseType(200, Type = typeof(BookDtoResponse))]
         [ProducesResponseType(404)]
         public async Task<ActionResult<BookDtoRequest>> GetBook(int id)
         {
@@ -47,7 +47,7 @@ namespace eLibraryApi.Controllers
         }
 
         [HttpGet("{name}")]
-        [ProducesResponseType(200, Type = typeof(List<BookDtoRequest>))]
+        [ProducesResponseType(200, Type = typeof(List<BookDtoResponse>))]
         public async Task<ActionResult<List<BookDtoRequest>>> GetBooks(string name)
         {
             var bookDtos = _mapper.Map<List<BookDtoRequest>>(await _bookRepository.GetBooksByName(name));
