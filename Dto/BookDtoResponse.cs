@@ -7,7 +7,7 @@ namespace eLibraryApi.Dto
         public string Title { get; set; }
         public string CoverImage { get; set; }
 
-        public Author Author { get; set; }
+        public AuthorDtoResponse Author { get; set; }
 
     }
 }

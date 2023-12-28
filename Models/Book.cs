@@ -1,4 +1,7 @@
-﻿namespace eLibraryApi.Models
+﻿using System.Text.Json.Serialization;
+using System.Text.Json;
+
+namespace eLibraryApi.Models
 {
     public class Book
     {
@@ -11,6 +14,11 @@
         public List<BookInstance> BookInstances { get; set; }
         public Author Author { get; set; }
         public int PublishYear { get; set; }
+        JsonSerializerOptions options = new()
+        {
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            WriteIndented = true
+        };
         public Book() { }
         public Book(int id, string title, string description, string coverImage, List<Category> categories, List<BookInstance> bookInstances, Author author, int publishYear)
         {

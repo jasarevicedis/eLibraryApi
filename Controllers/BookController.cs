@@ -22,9 +22,9 @@ namespace eLibraryApi.Controllers
         }
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<BookDtoResponse>))]
-        public async Task<ActionResult<List<BookDtoRequest>>> GetBooks()
+        public async Task<ActionResult<List<BookDtoResponse>>> GetBooks()
         {
-            var bookDtos = _mapper.Map<List<BookDtoRequest>>(await _bookRepository.GetBooks());
+            var bookDtos = _mapper.Map<List<BookDtoResponse>>(await _bookRepository.GetBooks());
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -34,16 +34,16 @@ namespace eLibraryApi.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(200, Type = typeof(BookDtoResponse))]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<BookDtoRequest>> GetBook(int id)
+        public async Task<ActionResult<BookDtoResponse>> GetBook(int id)
         {
             if (!await _bookRepository.BookExists(id))
                 return NotFound(ModelState);
-            var accommodationDto = _mapper.Map<BookDtoRequest>(await _bookRepository.GetBookById(id));
+            var bookDto = _mapper.Map<BookDtoRequest>(await _bookRepository.GetBookById(id));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok(accommodationDto);
+            return Ok(bookDto);
         }
 
         [HttpGet("{name}")]
